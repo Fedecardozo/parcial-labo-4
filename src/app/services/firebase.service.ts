@@ -17,11 +17,11 @@ export class FirebaseService {
   storage: AngularFireStorage = inject(AngularFireStorage);
 
   //ACTOR
-  agregarActor(actor: Actor) {
+  async agregarActor(actor: Actor) {
     const colUsuarios = this.firestore.collection('actores');
     const documento = colUsuarios.doc();
     actor.setId(documento.ref.id);
-    documento.set({ ...actor });
+    return await documento.set({ ...actor });
   }
 
   //IMAGENES

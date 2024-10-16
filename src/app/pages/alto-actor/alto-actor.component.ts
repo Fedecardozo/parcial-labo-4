@@ -12,6 +12,7 @@ import {
 } from '@angular/forms';
 import { FirebaseService } from '../../services/firebase.service';
 import { Actor } from '../../models/actor';
+import { Alert } from '../../models/alert';
 
 @Component({
   selector: 'app-alto-actor',
@@ -63,18 +64,26 @@ export class AltoActorComponent {
   acceder() {
     this.guardar = true;
     if (this.fg.valid && this.paisSelecionada) {
-      this.fire.agregarActor(
-        new Actor(
-          this.fg.controls['nombre'].value,
-          this.fg.controls['apellido'].value,
-          this.fg.controls['documento'].value,
-          this.fg.controls['edad'].value,
-          this.paisSelecionada.nombre
+      this.fire
+        .agregarActor(
+          new Actor(
+            this.fg.controls['nombre'].value,
+            this.fg.controls['apellido'].value,
+            this.fg.controls['documento'].value,
+            this.fg.controls['edad'].value,
+            this.paisSelecionada.nombre
+          )
         )
-      );
-      console.log(this.paisSelecionada);
-    } else {
-      console.log('sos un boludo');
+        .then(() => {
+          Alert.bien('Se cargo con exito!');
+          this.fg.reset();
+        })
+        .catch(() => {
+          Alert.mal(
+            'No se pudo cargar a la base de datos!',
+            'Intentelo más tarde.'
+          );
+        });
     }
     this.guardar = true;
   }
