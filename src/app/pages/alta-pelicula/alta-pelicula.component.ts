@@ -84,7 +84,6 @@ export class AltaPeliculaComponent {
           )
         )
         .then(() => {
-          this.spinner = false;
           Alert.bien('Se cargo con exito!');
           this.fg.reset();
         })
@@ -94,6 +93,9 @@ export class AltaPeliculaComponent {
             'Intentelo más tarde.'
           );
           console.log(res);
+        })
+        .finally(() => {
+          this.spinner = false;
         });
     }
   }

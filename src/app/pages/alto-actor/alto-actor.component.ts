@@ -30,6 +30,8 @@ export class AltoActorComponent {
   public fg: FormGroup;
   paisSelecionada?: Pais;
   guardar: boolean = false;
+  sppiner: boolean = true;
+  textSpinner: string = 'Cargando formulario';
 
   constructor() {
     this.fg = this.fb.group({
@@ -52,6 +54,7 @@ export class AltoActorComponent {
         this.listaPaises.push(pais);
       });
       this.listaPaises.sort((a, b) => a.nombre.localeCompare(b.nombre));
+      this.sppiner = false;
     });
   }
 
@@ -64,6 +67,8 @@ export class AltoActorComponent {
   acceder() {
     this.guardar = true;
     if (this.fg.valid && this.paisSelecionada) {
+      this.textSpinner = 'Cargando a la base datos';
+      this.sppiner = true;
       this.fire
         .agregarActor(
           new Actor(
@@ -83,6 +88,9 @@ export class AltoActorComponent {
             'No se pudo cargar a la base de datos!',
             'Intentelo más tarde.'
           );
+        })
+        .finally(() => {
+          this.sppiner = false;
         });
     }
   }
