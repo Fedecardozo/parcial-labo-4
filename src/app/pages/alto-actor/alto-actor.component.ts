@@ -10,6 +10,8 @@ import {
   ReactiveFormsModule,
   AbstractControl,
 } from '@angular/forms';
+import { FirebaseService } from '../../services/firebase.service';
+import { Actor } from '../../models/actor';
 
 @Component({
   selector: 'app-alto-actor',
@@ -21,16 +23,19 @@ import {
 export class AltoActorComponent {
   sub?: Subscription;
   private apiRest: ApiService = inject(ApiService);
+  private fire: FirebaseService = inject(FirebaseService);
   listaPaises: Pais[] = [];
   public fb: FormBuilder = inject(FormBuilder);
   public fg: FormGroup;
+  paisSelecionada?: Pais;
+  guardar: boolean = false;
 
   constructor() {
     this.fg = this.fb.group({
       nombre: ['', [Validators.required, this.noCaracteresEspeciales]],
       apellido: ['', [Validators.required, this.noCaracteresEspeciales]],
       documento: ['', [Validators.required, this.validDocument]],
-      edad: ['', [Validators.required, this.validDocument]],
+      edad: ['', [Validators.required]],
     });
   }
 
@@ -56,13 +61,22 @@ export class AltoActorComponent {
   }
 
   acceder() {
-    if (this.fg.valid) {
-      //Cargar a la base de datos
-      console.log('Se cargo con exito');
+    this.guardar = true;
+    if (this.fg.valid && this.paisSelecionada) {
+      this.fire.agregarActor(
+        new Actor(
+          this.fg.controls['nombre'].value,
+          this.fg.controls['apellido'].value,
+          this.fg.controls['documento'].value,
+          this.fg.controls['edad'].value,
+          this.paisSelecionada.nombre
+        )
+      );
+      console.log(this.paisSelecionada);
     } else {
-      console.log(this.fg.controls['documento'].errors);
       console.log('sos un boludo');
     }
+    this.guardar = true;
   }
 
   // Validador personalizado
@@ -82,5 +96,14 @@ export class AltoActorComponent {
       return { cantidadDoc: true };
     }
     return null;
+  }
+
+  selectPais(pais: Pais) {
+    if (this.paisSelecionada) {
+      this.paisSelecionada.clase =
+        'list-group-item d-flex justify-content-between lh-sm';
+    }
+    this.paisSelecionada = pais;
+    this.paisSelecionada.clase = this.paisSelecionada.clase + ' ' + 'bg-info';
   }
 }

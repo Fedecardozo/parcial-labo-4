@@ -7,6 +7,7 @@ import {
   ref,
   uploadString,
 } from '@angular/fire/storage';
+import { Actor } from '../models/actor';
 
 @Injectable({
   providedIn: 'root',
@@ -15,6 +16,15 @@ export class FirebaseService {
   constructor(private firestore: AngularFirestore) {}
   storage: AngularFireStorage = inject(AngularFireStorage);
 
+  //ACTOR
+  agregarActor(actor: Actor) {
+    const colUsuarios = this.firestore.collection('actores');
+    const documento = colUsuarios.doc();
+    actor.setId(documento.ref.id);
+    documento.set({ ...actor });
+  }
+
+  //IMAGENES
   async uploadImage(path: string, data_url: string) {
     return uploadString(ref(getStorage(), path), data_url, 'data_url').then(
       () => {
