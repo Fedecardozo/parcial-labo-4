@@ -16,3 +16,12 @@
   max-height: 350px; /* Ajusta el tamaño según lo necesites */
   overflow-y: auto;
 }
+
+.invalido {
+  color: red;
+  margin: 0;
+}
+
+.div-p {
+  height: 24px;
+}
