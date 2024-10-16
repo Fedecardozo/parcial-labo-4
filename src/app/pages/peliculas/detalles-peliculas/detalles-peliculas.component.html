@@ -2,29 +2,24 @@
 <div class="row align-items-md-stretch">
   <div class="col-md-6">
     <div class="h-100 p-5 text-white bg-dark rounded-3">
-      <h2>Change the background</h2>
-      <p>
-        Swap the background-color utility and add a `.text-*` color utility to
-        mix up the jumbotron look. Then, mix and match with additional component
-        themes and more.
-      </p>
-      <button class="btn btn-outline-light" type="button">
-        Example button
-      </button>
+      <h2>Detalles de la pelicula</h2>
+      @if(this.pelicula) {
+      <ul class="list-unstyled mt-3 mb-4">
+        <li>Nombre: {{ this.pelicula.Nombre }}</li>
+        <li>Cantidad de publico: {{ this.pelicula.CantidadPublico }}</li>
+        <li>Fecha de estreno: {{ this.pelicula.FechaEstreno }}</li>
+        <li>Genero: {{ this.pelicula.Tipo }}</li>
+        <li>Protagonista: {{ this.pelicula.Protagonista }}</li>
+      </ul>
+      }
     </div>
   </div>
   <div class="col-md-6">
-    <div class="h-100 p-5 bg-light border rounded-3">
-      <h2>Add borders</h2>
-      <p>
-        Or, keep it light and add a border for some added definition to the
-        boundaries of your content. Be sure to look under the hood at the source
-        HTML here as we've adjusted the alignment and sizing of both column's
-        content for equal-height.
-      </p>
-      <button class="btn btn-outline-secondary" type="button">
-        Example button
-      </button>
+    <div class="h-100 p-5 bg-light border rounded-3 cont-img">
+      <h2>Foto de la pelicula</h2>
+      @if(this.pelicula) {
+      <img [src]="this.pelicula.FotoPelicula" alt="foto" />
+      }
     </div>
   </div>
 </div>

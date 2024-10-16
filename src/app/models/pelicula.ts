@@ -7,6 +7,7 @@ export class Pelicula {
   Protagonista: string;
   id: string;
   static tipos: string[] = ['terror', 'comedia', 'amor', 'otros'];
+  private clase: string;
 
   constructor(
     nombre: string,
@@ -23,9 +24,18 @@ export class Pelicula {
     this.FotoPelicula = fotoPelicula;
     this.Protagonista = protagonista;
     this.id = '';
+    this.clase = 'list-group-item';
   }
 
   setId(id: string) {
     this.id = id;
+  }
+
+  setClase(clase: string) {
+    this.clase = clase;
+  }
+
+  getClase() {
+    return this.clase;
   }
 }

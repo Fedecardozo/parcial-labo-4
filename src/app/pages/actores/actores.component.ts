@@ -27,6 +27,7 @@ export class ActoresComponent {
   util: UtilsService = inject(UtilsService);
   listaActores: Actor[] = [];
   sub?: Subscription;
+  sub2?: Subscription;
   actorSeleccionado: Actor[] = [];
   pais?: Pais;
   peliculas: Pelicula[] = [];
@@ -67,6 +68,7 @@ export class ActoresComponent {
 
   ngOnDestroy(): void {
     this.sub?.unsubscribe();
+    this.sub2?.unsubscribe();
   }
 
   getSeleccionActor() {
@@ -79,7 +81,7 @@ export class ActoresComponent {
   }
 
   obtenerPeliculas() {
-    this.sub = this.fire
+    this.sub2 = this.fire
       .getPeliculas()
       .valueChanges()
       .subscribe((next) => {

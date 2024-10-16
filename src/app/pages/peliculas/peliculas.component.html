@@ -1,8 +1,13 @@
 <main>
   <div class="container py-4">
-    <app-tabla-peliculas></app-tabla-peliculas>
+    <app-tabla-peliculas
+      [listaPeliculas]="this.peliculas"
+      [peliculaSeleccionada]="this.peliculaSeleccionada"
+    ></app-tabla-peliculas>
 
-    <app-detalles-peliculas></app-detalles-peliculas>
+    <app-detalles-peliculas
+      [pelicula]="this.peliculaSeleccionada[0]"
+    ></app-detalles-peliculas>
 
     <footer class="pt-3 mt-4 text-muted border-top">
       &copy; 2024 Federico Cardozo

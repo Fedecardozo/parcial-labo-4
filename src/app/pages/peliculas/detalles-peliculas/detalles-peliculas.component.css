@@ -1,0 +1,11 @@
+img {
+  height: 150px;
+  object-fit: contain;
+}
+.cont-img {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  max-height: 300px;
+  text-align: center;
+}
