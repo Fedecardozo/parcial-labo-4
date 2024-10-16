@@ -8,6 +8,7 @@ import {
   uploadString,
 } from '@angular/fire/storage';
 import { Actor } from '../models/actor';
+import { Pelicula } from '../models/pelicula';
 
 @Injectable({
   providedIn: 'root',
@@ -23,6 +24,18 @@ export class FirebaseService {
     actor.setId(documento.ref.id);
     return await documento.set({ ...actor });
   }
+  getActores() {
+    const col = this.firestore.collection('actores');
+    return col;
+  }
+
+  //PELICULA
+  async agregarPelicula(pelicula: Pelicula) {
+    const colUsuarios = this.firestore.collection('peliculas');
+    const documento = colUsuarios.doc();
+    pelicula.setId(documento.ref.id);
+    return await documento.set({ ...pelicula });
+  }
 
   //IMAGENES
   async uploadImage(path: string, data_url: string) {
@@ -33,10 +46,27 @@ export class FirebaseService {
     );
   }
 
+  async subirImg(imagenCargada: any) {
+    const filePath = `images/${Date.now()}_${imagenCargada.name}`; // Crear un nombre único para la imagen
+    const fileRef = this.storage.ref(filePath);
+    const task = this.storage.upload(filePath, imagenCargada);
+
+    // Monitorear el progreso de la subida
+    task.percentageChanges().subscribe((progress) => {
+      let uploadProgress = progress ? progress : 0;
+      console.log(`Progreso de subida: ${uploadProgress}%`);
+    });
+
+    // Obtener la URL de descarga cuando la imagen se suba completamente
+    return await task.then((res) => {
+      return getDownloadURL(res.ref);
+    });
+  }
+
   //Agregar una imagen a la base de datos
-  // async agregarImagenDb(img: Imagen, nameCollection: string) {
+  // async agregarImagenDb(id:string, nameCollection: string) {
   //   const colImagenes = this.firestore.collection(nameCollection);
-  //   const documento = colImagenes.doc(img.fecha.toString());
+  //   const documento = colImagenes.doc(id);
   //   // user.setId(documento.ref.id);
   //   await documento.set({ ...img });
   // }

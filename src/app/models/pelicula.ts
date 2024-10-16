@@ -1,14 +1,14 @@
 export class Pelicula {
-  ID: string;
   Nombre: string;
   Tipo: string; //{terror, comedia, amor, otros}
   FechaEstreno: string;
   CantidadPublico: string;
   FotoPelicula: string;
   Protagonista: string;
+  id: string;
+  static tipos: string[] = ['terror', 'comedia', 'amor', 'otros'];
 
   constructor(
-    id: string,
     nombre: string,
     tipo: string,
     fechaEstreno: string,
@@ -16,12 +16,16 @@ export class Pelicula {
     fotoPelicula: string,
     protagonista: string
   ) {
-    this.ID = id;
     this.Nombre = nombre;
     this.Tipo = tipo;
     this.FechaEstreno = fechaEstreno;
     this.CantidadPublico = cantidaPublico;
     this.FotoPelicula = fotoPelicula;
     this.Protagonista = protagonista;
+    this.id = '';
+  }
+
+  setId(id: string) {
+    this.id = id;
   }
 }
