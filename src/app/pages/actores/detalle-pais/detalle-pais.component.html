@@ -9,8 +9,10 @@
         {{ this.pais.nombre }}
       </h1>
       <ul class="list-unstyled mt-3 mb-4">
-        <li>{{ this.pais.region }}</li>
-        <li>{{ this.pais.bandera }}</li>
+        <li>Region: {{ this.pais.region }}</li>
+        <li>
+          <img src="{{ this.pais.bandera }}" alt="bandera pais" />
+        </li>
       </ul>
       } @else {
 

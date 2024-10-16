@@ -7,6 +7,7 @@ import { FirebaseService } from '../../services/firebase.service';
 import { UtilsService } from '../../services/utils.service';
 import { Actor } from '../../models/actor';
 import { Subscription } from 'rxjs';
+import { Pais } from '../../models/pais';
 
 @Component({
   selector: 'app-actores',
@@ -26,6 +27,7 @@ export class ActoresComponent {
   listaActores: Actor[] = [];
   sub?: Subscription;
   actorSeleccionado: Actor[] = [];
+  pais?: Pais;
 
   constructor() {
     this.util.mostrarSpinner('Cargando lista de actores');
@@ -38,12 +40,17 @@ export class ActoresComponent {
       .subscribe((next) => {
         const actoresAux = next as Actor[];
         actoresAux.forEach((item) => {
+          const auxPais = new Pais(
+            item.pais.nombre,
+            item.pais.region,
+            item.pais.bandera
+          );
           const actorAux = new Actor(
             item.nombre,
             item.apellido,
             item.documento,
             item.edad,
-            item.pais
+            auxPais
           );
           actorAux.setId(item.id);
           actorAux.setClase('list-group-item');
@@ -58,6 +65,9 @@ export class ActoresComponent {
   }
 
   getSeleccionActor() {
-    console.log(this.actorSeleccionado[0]);
+    if (this.actorSeleccionado[0]) {
+      console.log(this.actorSeleccionado[0].pais);
+      this.pais = this.actorSeleccionado[0].pais;
+    }
   }
 }
