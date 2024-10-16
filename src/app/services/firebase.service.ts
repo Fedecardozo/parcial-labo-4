@@ -22,7 +22,7 @@ export class FirebaseService {
     const colUsuarios = this.firestore.collection('actores');
     const documento = colUsuarios.doc();
     actor.setId(documento.ref.id);
-    return await documento.set({ ...actor });
+    return await documento.set({ ...actor.devolverEnFormaDeObj() });
   }
   getActores() {
     const col = this.firestore.collection('actores');

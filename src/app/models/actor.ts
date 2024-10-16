@@ -36,4 +36,19 @@ export class Actor {
   getClase() {
     return this.clase;
   }
+
+  devolverEnFormaDeObj() {
+    return {
+      id: this.id,
+      nombre: this.nombre,
+      apellido: this.apellido,
+      documento: this.documento,
+      edad: this.edad,
+      pais: {
+        nombre: this.pais.nombre,
+        region: this.pais.region,
+        bandera: this.pais.bandera,
+      },
+    };
+  }
 }

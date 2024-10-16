@@ -81,11 +81,12 @@ export class AltoActorComponent {
           Alert.bien('Se cargo con exito!');
           this.fg.reset();
         })
-        .catch(() => {
+        .catch((res) => {
           Alert.mal(
             'No se pudo cargar a la base de datos!',
             'Intentelo más tarde.'
           );
+          console.log(res);
         })
         .finally(() => {
           this.util.ocultarSpinner();

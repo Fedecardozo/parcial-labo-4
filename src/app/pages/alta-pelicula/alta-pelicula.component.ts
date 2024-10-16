@@ -38,7 +38,7 @@ export class AltaPeliculaComponent {
     this.fg = this.fb.group({
       nombre: ['', [Validators.required]],
       imagen: [''],
-      tipo: [this.tipos[0]],
+      tipo: [this.tipos[0], [Validators.required]],
       fecha: ['', [Validators.required]],
       candidad: ['', [Validators.required, this.validDocument]],
     });
@@ -60,7 +60,6 @@ export class AltaPeliculaComponent {
           actorAux.setId(item.id);
           this.listaActores.push(actorAux);
         });
-
         this.util.ocultarSpinner();
       });
   }
@@ -69,6 +68,7 @@ export class AltaPeliculaComponent {
   }
   async acceder() {
     this.guardar = true;
+
     if (this.fg.valid && this.actorSelecionada && this.validarImagen()) {
       this.util.mostrarSpinner('Subiendo imagen...');
       const url = await this.guardarImagen();
@@ -86,17 +86,19 @@ export class AltaPeliculaComponent {
         .then(() => {
           Alert.bien('Se cargo con exito!');
           this.fg.reset();
+          this.errorImg = '';
         })
         .catch((res) => {
           Alert.mal(
             'No se pudo cargar a la base de datos!',
             'Intentelo más tarde.'
           );
-          console.log(res);
         })
         .finally(() => {
           this.util.ocultarSpinner();
         });
+    } else {
+      Alert.mal('Hay campos vacios!', 'Complete todos los campos!');
     }
   }
   //VALIDADOR
@@ -116,10 +118,11 @@ export class AltaPeliculaComponent {
   }
 
   validarImagen(): boolean {
-    console.log(this.fg.controls['imagen']);
     if (this.fg.controls['imagen'].value === '') {
       this.errorImg = 'Este campo es requerido';
       return false;
+    } else {
+      this.errorImg = '';
     }
     return true;
   }

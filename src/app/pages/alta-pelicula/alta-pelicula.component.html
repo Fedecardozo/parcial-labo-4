@@ -29,7 +29,7 @@
             <div>
               <h6 class="my-0">{{ item.nombre }}</h6>
             </div>
-            <span class="text-muted">{{ item.pais }}</span>
+            <span class="text-muted">{{ item.pais.nombre }}</span>
           </li>
           }
         </ul>
@@ -71,6 +71,13 @@
                 <option value="{{ item }}">{{ item }}</option>
                 }
               </select>
+              <div class="div-p">
+                @if(this.fg.controls['tipo'].errors !== null &&
+                this.fg.controls["tipo"].touched) { @if
+                (this.fg.controls['tipo'].errors!['required']) {
+                <p class="invalido">Este campo es requerido</p>
+                } }
+              </div>
             </div>
 
             <div class="col-6">
