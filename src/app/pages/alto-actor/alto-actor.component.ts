@@ -85,7 +85,6 @@ export class AltoActorComponent {
           );
         });
     }
-    this.guardar = true;
   }
 
   // Validador personalizado
