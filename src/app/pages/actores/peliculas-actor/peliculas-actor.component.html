@@ -4,14 +4,14 @@
       <h4 class="my-0 fw-normal">Peliculas del actor</h4>
     </div>
     <div class="card-body">
-      @if (this.actor && this.peliculasActor.length) {
+      @if (this.peliculasActor.length) {
       <ul class="list-unstyled mt-3 mb-4">
         @for (item of this.peliculasActor; track $index) {
-        <li>{{ item.Nombre }}</li>
+        <li>{{ $index + 1 }}-Pelicula: {{ item.Nombre }}</li>
         }
       </ul>
-      } @else if (this.peliculasActor.length) {
-      <p>No hay peliculas cargadas del actor</p>
+      } @else if (this.peliculasActor.length===0) {
+      <p>No hay peliculas cargadas de este actor</p>
       } @else {
       <h1 class="card-title pricing-card-title">Vacio</h1>
       }

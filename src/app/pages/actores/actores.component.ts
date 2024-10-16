@@ -8,6 +8,7 @@ import { UtilsService } from '../../services/utils.service';
 import { Actor } from '../../models/actor';
 import { Subscription } from 'rxjs';
 import { Pais } from '../../models/pais';
+import { Pelicula } from '../../models/pelicula';
 
 @Component({
   selector: 'app-actores',
@@ -28,6 +29,8 @@ export class ActoresComponent {
   sub?: Subscription;
   actorSeleccionado: Actor[] = [];
   pais?: Pais;
+  peliculas: Pelicula[] = [];
+  peliculasActor: Pelicula[] = [];
 
   constructor() {
     this.util.mostrarSpinner('Cargando lista de actores');
@@ -58,6 +61,8 @@ export class ActoresComponent {
         });
         this.util.ocultarSpinner();
       });
+
+    this.obtenerPeliculas();
   }
 
   ngOnDestroy(): void {
@@ -66,8 +71,31 @@ export class ActoresComponent {
 
   getSeleccionActor() {
     if (this.actorSeleccionado[0]) {
-      console.log(this.actorSeleccionado[0].pais);
       this.pais = this.actorSeleccionado[0].pais;
+      this.peliculasActor = this.peliculas.filter(
+        (valu) => valu.Protagonista === this.actorSeleccionado[0].id
+      );
     }
+  }
+
+  obtenerPeliculas() {
+    this.sub = this.fire
+      .getPeliculas()
+      .valueChanges()
+      .subscribe((next) => {
+        const aux = next as Pelicula[];
+        aux.forEach((item) => {
+          this.peliculas.push(
+            new Pelicula(
+              item.Nombre,
+              item.Tipo,
+              item.FechaEstreno,
+              item.CantidadPublico,
+              item.FotoPelicula,
+              item.Protagonista
+            )
+          );
+        });
+      });
   }
 }
