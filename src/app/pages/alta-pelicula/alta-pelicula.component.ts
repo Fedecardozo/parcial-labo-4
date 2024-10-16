@@ -30,6 +30,8 @@ export class AltaPeliculaComponent {
   tipos: string[] = Pelicula.tipos;
   errorImg: string = '';
   imagenCargada: File | null = null;
+  spinner: boolean = true;
+  textSpinner: string = 'Cargando formulario...';
 
   constructor() {
     this.fg = this.fb.group({
@@ -57,15 +59,18 @@ export class AltaPeliculaComponent {
           actorAux.setId(item.id);
           this.listaActores.push(actorAux);
         });
+
+        this.spinner = false;
       });
   }
-  ngAfterViewInit(): void {}
   ngOnDestroy(): void {
     this.sub?.unsubscribe();
   }
   async acceder() {
     this.guardar = true;
     if (this.fg.valid && this.actorSelecionada && this.validarImagen()) {
+      this.spinner = true;
+      this.textSpinner = 'Subiendo imagen...';
       const url = await this.guardarImagen();
       this.fire
         .agregarPelicula(
@@ -79,6 +84,7 @@ export class AltaPeliculaComponent {
           )
         )
         .then(() => {
+          this.spinner = false;
           Alert.bien('Se cargo con exito!');
           this.fg.reset();
         })
