@@ -1,0 +1,22 @@
+<div class="col">
+  <div class="card mb-4 rounded-3 shadow-sm">
+    <div class="card-header py-3">
+      <h4 class="my-0 fw-normal">Pais</h4>
+    </div>
+    <div class="card-body">
+      @if(this.pais){
+      <h1 class="card-title pricing-card-title">
+        {{ this.pais.nombre }}
+      </h1>
+      <ul class="list-unstyled mt-3 mb-4">
+        <li>{{ this.pais.region }}</li>
+        <li>{{ this.pais.bandera }}</li>
+      </ul>
+      } @else {
+
+      <h1 class="card-title pricing-card-title">Vacio</h1>
+
+      }
+    </div>
+  </div>
+</div>

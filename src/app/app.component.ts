@@ -1,5 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { RouterLink, RouterOutlet } from '@angular/router';
+import { UtilsService } from './services/utils.service';
 
 @Component({
   selector: 'app-root',
@@ -10,4 +11,5 @@ import { RouterLink, RouterOutlet } from '@angular/router';
 })
 export class AppComponent {
   title = 'simulacro';
+  util: UtilsService = inject(UtilsService);
 }

@@ -1,8 +1,9 @@
 import { Routes } from '@angular/router';
 
 export const routes: Routes = [
+  { path: '', pathMatch: 'full', redirectTo: '/peliculas' },
   {
-    path: 'actores',
+    path: 'Actores',
     loadComponent: () =>
       import('./pages/actores/actores.component').then(
         (m) => m.ActoresComponent

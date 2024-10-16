@@ -12,6 +12,7 @@ import { FirebaseService } from '../../services/firebase.service';
 import { Actor } from '../../models/actor';
 import { Alert } from '../../models/alert';
 import { Pelicula } from '../../models/pelicula';
+import { UtilsService } from '../../services/utils.service';
 @Component({
   selector: 'app-alta-pelicula',
   standalone: true,
@@ -22,6 +23,7 @@ import { Pelicula } from '../../models/pelicula';
 export class AltaPeliculaComponent {
   sub?: Subscription;
   private fire: FirebaseService = inject(FirebaseService);
+  public util: UtilsService = inject(UtilsService);
   listaActores: Actor[] = [];
   public fb: FormBuilder = inject(FormBuilder);
   public fg: FormGroup;
@@ -30,10 +32,9 @@ export class AltaPeliculaComponent {
   tipos: string[] = Pelicula.tipos;
   errorImg: string = '';
   imagenCargada: File | null = null;
-  spinner: boolean = true;
-  textSpinner: string = 'Cargando formulario...';
 
   constructor() {
+    this.util.mostrarSpinner('Cargando formulario');
     this.fg = this.fb.group({
       nombre: ['', [Validators.required]],
       imagen: [''],
@@ -60,7 +61,7 @@ export class AltaPeliculaComponent {
           this.listaActores.push(actorAux);
         });
 
-        this.spinner = false;
+        this.util.ocultarSpinner();
       });
   }
   ngOnDestroy(): void {
@@ -69,8 +70,7 @@ export class AltaPeliculaComponent {
   async acceder() {
     this.guardar = true;
     if (this.fg.valid && this.actorSelecionada && this.validarImagen()) {
-      this.spinner = true;
-      this.textSpinner = 'Subiendo imagen...';
+      this.util.mostrarSpinner('Subiendo imagen...');
       const url = await this.guardarImagen();
       this.fire
         .agregarPelicula(
@@ -95,7 +95,7 @@ export class AltaPeliculaComponent {
           console.log(res);
         })
         .finally(() => {
-          this.spinner = false;
+          this.util.ocultarSpinner();
         });
     }
   }

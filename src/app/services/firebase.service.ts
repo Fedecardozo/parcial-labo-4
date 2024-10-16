@@ -37,6 +37,11 @@ export class FirebaseService {
     return await documento.set({ ...pelicula });
   }
 
+  getPeliculas() {
+    const col = this.firestore.collection('peliculas');
+    return col;
+  }
+
   //IMAGENES
   async uploadImage(path: string, data_url: string) {
     return uploadString(ref(getStorage(), path), data_url, 'data_url').then(

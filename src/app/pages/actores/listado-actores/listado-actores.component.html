@@ -1,0 +1,12 @@
+<header>
+  <div class="pricing-header p-3 pb-md-4 mx-auto text-center">
+    <h1 class="display-4 fw-normal">Lista de actores</h1>
+    <ul class="list-group">
+      @for (item of this.listaActores; track $index) {
+      <li class="{{ item.getClase() }}" (click)="seleccionActor(item)">
+        {{ item.nombre }}
+      </li>
+      }
+    </ul>
+  </div>
+</header>

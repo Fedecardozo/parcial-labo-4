@@ -1,5 +1,48 @@
-<button routerLink="/Peliculas">Peliculas</button>
-<button routerLink="/AltaPelicula">Alta pelicula</button>
-<button routerLink="AltoActor">alta actor</button>
-<button routerLink="Actores">actores</button>
+<header>
+  <div
+    class="d-flex flex-column flex-md-row align-items-center pb-3 mb-4 border-bottom"
+  >
+    <img src="img/logo.png" alt="logo" class="m-3" routerLink="Peliculas" />
+    <span class="fs-4" routerLink="Peliculas">Peliculas</span>
+
+    <nav class="d-inline-flex mt-2 mt-md-0 ms-md-auto">
+      <button
+        class="me-3 py-2 text-dark"
+        class="btn btn-secondary m-1"
+        routerLink="/Peliculas"
+      >
+        Peliculas
+      </button>
+      <button
+        class="me-3 py-2 text-dark"
+        class="btn btn-secondary m-1"
+        routerLink="/AltaPelicula"
+      >
+        Alta pelicula
+      </button>
+      <button
+        class="me-3 py-2 text-dark"
+        class="btn btn-secondary m-1"
+        routerLink="AltoActor"
+      >
+        alta actor
+      </button>
+      <button
+        class="me-3 py-2 text-dark"
+        class="btn btn-secondary m-1"
+        routerLink="Actores"
+      >
+        actores
+      </button>
+    </nav>
+  </div>
+</header>
+
+@if(this.util.spinner){
+<main class="spinner">
+  <h2 class="mb-3">{{ this.util.tituloSpinner }}</h2>
+  <div class="spinner-border size-spinner"></div>
+</main>
+}
+
 <router-outlet />

@@ -1,10 +1,12 @@
+import { Pais } from './pais';
+
 export class Actor {
   id: string;
   nombre: string;
   apellido: string;
   documento: string;
   edad: string;
-  pais: string;
+  pais: Pais;
   private clase: string;
 
   constructor(
@@ -12,7 +14,7 @@ export class Actor {
     apellido: string,
     documento: string,
     edad: string,
-    pais: string
+    pais: Pais
   ) {
     this.nombre = nombre;
     this.apellido = apellido;

@@ -13,6 +13,7 @@ import {
 import { FirebaseService } from '../../services/firebase.service';
 import { Actor } from '../../models/actor';
 import { Alert } from '../../models/alert';
+import { UtilsService } from '../../services/utils.service';
 
 @Component({
   selector: 'app-alto-actor',
@@ -25,15 +26,15 @@ export class AltoActorComponent {
   sub?: Subscription;
   private apiRest: ApiService = inject(ApiService);
   private fire: FirebaseService = inject(FirebaseService);
+  private util: UtilsService = inject(UtilsService);
   listaPaises: Pais[] = [];
   public fb: FormBuilder = inject(FormBuilder);
   public fg: FormGroup;
   paisSelecionada?: Pais;
   guardar: boolean = false;
-  sppiner: boolean = true;
-  textSpinner: string = 'Cargando formulario';
 
   constructor() {
+    this.util.mostrarSpinner('Cargando formulario');
     this.fg = this.fb.group({
       nombre: ['', [Validators.required, this.noCaracteresEspeciales]],
       apellido: ['', [Validators.required, this.noCaracteresEspeciales]],
@@ -54,11 +55,9 @@ export class AltoActorComponent {
         this.listaPaises.push(pais);
       });
       this.listaPaises.sort((a, b) => a.nombre.localeCompare(b.nombre));
-      this.sppiner = false;
+      this.util.ocultarSpinner();
     });
   }
-
-  ngAfterViewInit(): void {}
 
   ngOnDestroy(): void {
     this.sub?.unsubscribe();
@@ -67,8 +66,7 @@ export class AltoActorComponent {
   acceder() {
     this.guardar = true;
     if (this.fg.valid && this.paisSelecionada) {
-      this.textSpinner = 'Cargando a la base datos';
-      this.sppiner = true;
+      this.util.mostrarSpinner('Cargando a la base datos');
       this.fire
         .agregarActor(
           new Actor(
@@ -76,7 +74,7 @@ export class AltoActorComponent {
             this.fg.controls['apellido'].value,
             this.fg.controls['documento'].value,
             this.fg.controls['edad'].value,
-            this.paisSelecionada.nombre
+            this.paisSelecionada
           )
         )
         .then(() => {
@@ -90,7 +88,7 @@ export class AltoActorComponent {
           );
         })
         .finally(() => {
-          this.sppiner = false;
+          this.util.ocultarSpinner();
         });
     }
   }
