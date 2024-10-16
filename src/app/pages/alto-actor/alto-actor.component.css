@@ -11,3 +11,8 @@
     font-size: 3.5rem;
   }
 }
+
+.scrollable-list {
+  max-height: 350px; /* Ajusta el tamaño según lo necesites */
+  overflow-y: auto;
+}
