@@ -28,6 +28,16 @@ export class FirebaseService {
     const col = this.firestore.collection('actores');
     return col;
   }
+  getActor(id: string) {
+    const col = this.firestore
+      .collection('actores')
+      .doc(id)
+      .get()
+      .subscribe((data) => {
+        console.log(data.data());
+      });
+    // const documento = col.
+  }
 
   //PELICULA
   async agregarPelicula(pelicula: Pelicula) {

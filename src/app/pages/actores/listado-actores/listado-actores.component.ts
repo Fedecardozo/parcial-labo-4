@@ -25,7 +25,7 @@ export class ListadoActoresComponent {
 
   seleccionActor(actor: Actor) {
     const classStyle = actor.getClase();
-    actor.setClase(classStyle + ' active');
+    actor.setClase(classStyle + ' bg-info');
     if (this.actorSeleccionado[0]) {
       this.actorSeleccionado[0].setClase(classStyle);
     }

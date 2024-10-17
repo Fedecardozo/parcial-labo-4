@@ -15,7 +15,7 @@ export class TablaPeliculasComponent {
 
   seleccionPelicula(pelicula: Pelicula) {
     const classStyle = pelicula.getClase();
-    pelicula.setClase(classStyle + ' active');
+    pelicula.setClase(classStyle + ' bg-info');
     if (this.peliculaSeleccionada[0]) {
       this.peliculaSeleccionada[0].setClase(classStyle);
     }

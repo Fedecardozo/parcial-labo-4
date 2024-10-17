@@ -5,6 +5,8 @@ export class Alert {
       title: titulo,
       text: texto,
       icon: 'success',
+      backdrop: true, // Esta opción asegura que el fondo sea oscuro
+      allowOutsideClick: false, // Impide cerrar al hacer clic fuera del modal
     });
   }
 
@@ -13,6 +15,8 @@ export class Alert {
       title: titulo,
       text: texto,
       icon: 'error',
+      backdrop: true, // Esta opción asegura que el fondo sea oscuro
+      allowOutsideClick: false, // Impide cerrar al hacer clic fuera del modal
     });
   }
 }

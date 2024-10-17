@@ -1,5 +1,6 @@
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { Pelicula } from '../../../models/pelicula';
+import { FirebaseService } from '../../../services/firebase.service';
 
 @Component({
   selector: 'app-detalles-peliculas',
@@ -10,4 +11,5 @@ import { Pelicula } from '../../../models/pelicula';
 })
 export class DetallesPeliculasComponent {
   @Input() pelicula?: Pelicula;
+  fire: FirebaseService = inject(FirebaseService);
 }
